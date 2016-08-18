@@ -3,7 +3,8 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.App as App
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput, onClick)
+import Html.Events exposing (onInput, onClick, onBlur, on, keyCode)
+import Json.Decode as Json
 
 
 main =
@@ -42,7 +43,8 @@ init =
 
 
 type Msg
-    = Title String
+    = NoOp
+    | Title String
     | Ingredient String
     | Instruction String
     | AddIngredient String
@@ -54,6 +56,9 @@ type Msg
 update : Msg -> Model -> Model
 update msg model =
     case msg of
+        NoOp ->
+            model
+
         Title title ->
             { model | title = title }
 
@@ -67,13 +72,25 @@ update msg model =
             { model | ingredients = model.ingredients ++ [ ingredient ], ingredient = "" }
 
         AddInstruction instruction ->
-            { model | instructions = model.instructions ++ [ instruction ] }
+            { model | instructions = model.instructions ++ [ instruction ], instruction = "" }
 
         RemoveIngredient ingredient ->
             { model | ingredients = List.filter (\n -> (n /= ingredient)) model.ingredients }
 
         RemoveInstruction instruction ->
             { model | instructions = List.filter (\n -> (n /= instruction)) model.instructions }
+
+
+onEnter : Msg -> Attribute Msg
+onEnter msg =
+    let
+        tagger code =
+            if code == 13 then
+                msg
+            else
+                NoOp
+    in
+        on "keydown" (Json.map tagger keyCode)
 
 
 
@@ -87,12 +104,24 @@ view model =
             [ input [ type' "text", placeholder "Title", onInput Title ] []
             ]
         , p []
-            [ input [ type' "text", placeholder "10 Granny Smith Apples...", value model.ingredient, onInput Ingredient ] []
-            , button [ onClick (AddIngredient model.ingredient) ] [ text "Add Ingredient" ]
+            [ input
+                [ type' "text"
+                , placeholder "10 Granny Smith Apples..."
+                , value model.ingredient
+                , onInput Ingredient
+                , onEnter (AddIngredient model.ingredient)
+                ]
+                []
             ]
         , p []
-            [ input [ type' "text", placeholder "Peel the apples...", onInput Instruction ] []
-            , button [ onClick (AddInstruction model.instruction) ] [ text "Add Instruction" ]
+            [ input
+                [ type' "text"
+                , placeholder "Peel the apples..."
+                , value model.instruction
+                , onInput Instruction
+                , onEnter (AddInstruction model.instruction)
+                ]
+                []
             ]
         , h1 [] [ text model.title ]
         , div [] <|

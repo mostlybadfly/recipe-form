@@ -11,6 +11,8 @@ var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
 		switch (_p2.ctor) {
+			case 'NoOp':
+				return model;
 			case 'Title':
 				return _elm_lang$core$Native_Utils.update(
 					model,
@@ -42,7 +44,8 @@ var _user$project$Main$update = F2(
 							_elm_lang$core$Basics_ops['++'],
 							model.instructions,
 							_elm_lang$core$Native_List.fromArray(
-								[_p2._0]))
+								[_p2._0])),
+						instruction: ''
 					});
 			case 'RemoveIngredient':
 				return _elm_lang$core$Native_Utils.update(
@@ -158,6 +161,16 @@ var _user$project$Main$Ingredient = function (a) {
 var _user$project$Main$Title = function (a) {
 	return {ctor: 'Title', _0: a};
 };
+var _user$project$Main$NoOp = {ctor: 'NoOp'};
+var _user$project$Main$onEnter = function (msg) {
+	var tagger = function (code) {
+		return _elm_lang$core$Native_Utils.eq(code, 13) ? msg : _user$project$Main$NoOp;
+	};
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'keydown',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$keyCode));
+};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -195,21 +208,12 @@ var _user$project$Main$view = function (model) {
 								_elm_lang$html$Html_Attributes$type$('text'),
 								_elm_lang$html$Html_Attributes$placeholder('10 Granny Smith Apples...'),
 								_elm_lang$html$Html_Attributes$value(model.ingredient),
-								_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient)
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$html$Html$button,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Events$onClick(
+								_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient),
+								_user$project$Main$onEnter(
 								_user$project$Main$AddIngredient(model.ingredient))
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html$text('Add Ingredient')
-							]))
+							[]))
 					])),
 				A2(
 				_elm_lang$html$Html$p,
@@ -223,21 +227,13 @@ var _user$project$Main$view = function (model) {
 							[
 								_elm_lang$html$Html_Attributes$type$('text'),
 								_elm_lang$html$Html_Attributes$placeholder('Peel the apples...'),
-								_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction)
-							]),
-						_elm_lang$core$Native_List.fromArray(
-							[])),
-						A2(
-						_elm_lang$html$Html$button,
-						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html_Events$onClick(
+								_elm_lang$html$Html_Attributes$value(model.instruction),
+								_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction),
+								_user$project$Main$onEnter(
 								_user$project$Main$AddInstruction(model.instruction))
 							]),
 						_elm_lang$core$Native_List.fromArray(
-							[
-								_elm_lang$html$Html$text('Add Instruction')
-							]))
+							[]))
 					])),
 				A2(
 				_elm_lang$html$Html$h1,
