@@ -1,53 +1,28 @@
-var _user$project$Main$listInstructions = function (model) {
-	var parseInstruction = function (instruction) {
-		return A2(
-			_elm_lang$html$Html$li,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text(instruction)
-				]));
-	};
+var _user$project$Main$recipeFilter = function (list) {
 	return A2(
-		_elm_lang$html$Html$ul,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		A2(_elm_lang$core$List$map, parseInstruction, model.instructions));
-};
-var _user$project$Main$listIngredients = function (model) {
-	var parseIngredient = function (ingredient) {
-		return A2(
-			_elm_lang$html$Html$li,
-			_elm_lang$core$Native_List.fromArray(
-				[]),
-			_elm_lang$core$Native_List.fromArray(
-				[
-					_elm_lang$html$Html$text(ingredient)
-				]));
-	};
-	return A2(
-		_elm_lang$html$Html$ul,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		A2(_elm_lang$core$List$map, parseIngredient, model.ingredients));
+		_elm_lang$core$List$filterMap,
+		function (_p0) {
+			var _p1 = _p0;
+			return _elm_lang$core$Native_Utils.eq(_p1._0, true) ? _elm_lang$core$Maybe$Just(_p1._1) : _elm_lang$core$Maybe$Nothing;
+		},
+		list);
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
+		var _p2 = msg;
+		switch (_p2.ctor) {
 			case 'Title':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{title: _p0._0});
+					{title: _p2._0});
 			case 'Ingredient':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{ingredient: _p0._0});
+					{ingredient: _p2._0});
 			case 'Instruction':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{instruction: _p0._0});
+					{instruction: _p2._0});
 			case 'AddIngredient':
 				return _elm_lang$core$Native_Utils.update(
 					model,
@@ -56,9 +31,10 @@ var _user$project$Main$update = F2(
 							_elm_lang$core$Basics_ops['++'],
 							model.ingredients,
 							_elm_lang$core$Native_List.fromArray(
-								[_p0._0]))
+								[_p2._0])),
+						ingredient: ''
 					});
-			default:
+			case 'AddInstruction':
 				return _elm_lang$core$Native_Utils.update(
 					model,
 					{
@@ -66,7 +42,29 @@ var _user$project$Main$update = F2(
 							_elm_lang$core$Basics_ops['++'],
 							model.instructions,
 							_elm_lang$core$Native_List.fromArray(
-								[_p0._0]))
+								[_p2._0]))
+					});
+			case 'RemoveIngredient':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						ingredients: A2(
+							_elm_lang$core$List$filter,
+							function (n) {
+								return !_elm_lang$core$Native_Utils.eq(n, _p2._0);
+							},
+							model.ingredients)
+					});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						instructions: A2(
+							_elm_lang$core$List$filter,
+							function (n) {
+								return !_elm_lang$core$Native_Utils.eq(n, _p2._0);
+							},
+							model.instructions)
 					});
 		}
 	});
@@ -83,6 +81,68 @@ var _user$project$Main$Model = F5(
 	function (a, b, c, d, e) {
 		return {title: a, ingredient: b, instruction: c, ingredients: d, instructions: e};
 	});
+var _user$project$Main$RemoveInstruction = function (a) {
+	return {ctor: 'RemoveInstruction', _0: a};
+};
+var _user$project$Main$listInstructions = function (model) {
+	var parseInstruction = function (instruction) {
+		return A2(
+			_elm_lang$html$Html$li,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(instruction),
+					A2(
+					_elm_lang$html$Html$button,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Events$onClick(
+							_user$project$Main$RemoveInstruction(instruction))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text('Remove')
+						]))
+				]));
+	};
+	return A2(
+		_elm_lang$html$Html$ul,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, parseInstruction, model.instructions));
+};
+var _user$project$Main$RemoveIngredient = function (a) {
+	return {ctor: 'RemoveIngredient', _0: a};
+};
+var _user$project$Main$listIngredients = function (model) {
+	var parseIngredient = function (ingredient) {
+		return A2(
+			_elm_lang$html$Html$li,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(ingredient),
+					A2(
+					_elm_lang$html$Html$button,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Events$onClick(
+							_user$project$Main$RemoveIngredient(ingredient))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text('Remove')
+						]))
+				]));
+	};
+	return A2(
+		_elm_lang$html$Html$ul,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, parseIngredient, model.ingredients));
+};
 var _user$project$Main$AddInstruction = function (a) {
 	return {ctor: 'AddInstruction', _0: a};
 };
@@ -106,7 +166,7 @@ var _user$project$Main$view = function (model) {
 		_elm_lang$core$Native_List.fromArray(
 			[
 				A2(
-				_elm_lang$html$Html$div,
+				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
@@ -123,7 +183,7 @@ var _user$project$Main$view = function (model) {
 							[]))
 					])),
 				A2(
-				_elm_lang$html$Html$div,
+				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
@@ -133,7 +193,8 @@ var _user$project$Main$view = function (model) {
 						_elm_lang$core$Native_List.fromArray(
 							[
 								_elm_lang$html$Html_Attributes$type$('text'),
-								_elm_lang$html$Html_Attributes$placeholder('Ingredients'),
+								_elm_lang$html$Html_Attributes$placeholder('10 Granny Smith Apples...'),
+								_elm_lang$html$Html_Attributes$value(model.ingredient),
 								_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient)
 							]),
 						_elm_lang$core$Native_List.fromArray(
@@ -151,7 +212,7 @@ var _user$project$Main$view = function (model) {
 							]))
 					])),
 				A2(
-				_elm_lang$html$Html$div,
+				_elm_lang$html$Html$p,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				_elm_lang$core$Native_List.fromArray(
@@ -161,7 +222,7 @@ var _user$project$Main$view = function (model) {
 						_elm_lang$core$Native_List.fromArray(
 							[
 								_elm_lang$html$Html_Attributes$type$('text'),
-								_elm_lang$html$Html_Attributes$placeholder('Instructions'),
+								_elm_lang$html$Html_Attributes$placeholder('Peel the apples...'),
 								_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction)
 							]),
 						_elm_lang$core$Native_List.fromArray(
@@ -187,23 +248,59 @@ var _user$project$Main$view = function (model) {
 						_elm_lang$html$Html$text(model.title)
 					])),
 				A2(
-				_elm_lang$html$Html$h3,
+				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('Ingredients')
-					])),
-				_user$project$Main$listIngredients(model),
-				A2(
-				_elm_lang$html$Html$h3,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('Instructions')
-					])),
-				_user$project$Main$listInstructions(model)
+				_user$project$Main$recipeFilter(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							A2(
+							F2(
+								function (v0, v1) {
+									return {ctor: '_Tuple2', _0: v0, _1: v1};
+								}),
+							_elm_lang$core$Native_Utils.cmp(
+								_elm_lang$core$List$length(model.ingredients),
+								0) > 0,
+							A2(
+								_elm_lang$html$Html$h3,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Ingredients')
+									]))),
+							A2(
+							F2(
+								function (v0, v1) {
+									return {ctor: '_Tuple2', _0: v0, _1: v1};
+								}),
+							true,
+							_user$project$Main$listIngredients(model)),
+							A2(
+							F2(
+								function (v0, v1) {
+									return {ctor: '_Tuple2', _0: v0, _1: v1};
+								}),
+							_elm_lang$core$Native_Utils.cmp(
+								_elm_lang$core$List$length(model.instructions),
+								0) > 0,
+							A2(
+								_elm_lang$html$Html$h3,
+								_elm_lang$core$Native_List.fromArray(
+									[]),
+								_elm_lang$core$Native_List.fromArray(
+									[
+										_elm_lang$html$Html$text('Instructions')
+									]))),
+							A2(
+							F2(
+								function (v0, v1) {
+									return {ctor: '_Tuple2', _0: v0, _1: v1};
+								}),
+							true,
+							_user$project$Main$listInstructions(model))
+						])))
 			]));
 };
 var _user$project$Main$main = {
