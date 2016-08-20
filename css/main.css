@@ -5,11 +5,12 @@ body {
 input {
 	font-family: monospace;
 	font-size: 14px;
-  height: 50px;
+  height: auto;
   width: 100%;
   border: none;
   text-align: center;
   background-color: lightblue;
+  
 }
 
 li {
@@ -22,7 +23,17 @@ ul {
 	list-style: none;
 }
 
-h3 {
+h2 {
 	font-family: monospace;
 	text-align: center;
+}
+
+.title {
+  font-size: 50px;
+}
+
+.item-input {
+}
+
+.remove-btn {
 }

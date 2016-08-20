@@ -69,16 +69,30 @@ update msg model =
             { model | instruction = instruction }
 
         AddIngredient ingredient ->
-            { model | ingredients = model.ingredients ++ [ ingredient ], ingredient = "" }
+            { model
+                | ingredients =
+                    model.ingredients ++ [ ingredient ]
+                , ingredient = ""
+            }
 
         AddInstruction instruction ->
-            { model | instructions = model.instructions ++ [ instruction ], instruction = "" }
+            { model
+                | instructions =
+                    model.instructions ++ [ instruction ]
+                , instruction = ""
+            }
 
         RemoveIngredient ingredient ->
-            { model | ingredients = List.filter (\n -> (n /= ingredient)) model.ingredients }
+            { model
+                | ingredients =
+                    List.filter (\n -> (n /= ingredient)) model.ingredients
+            }
 
         RemoveInstruction instruction ->
-            { model | instructions = List.filter (\n -> (n /= instruction)) model.instructions }
+            { model
+                | instructions =
+                    List.filter (\n -> (n /= instruction)) model.instructions
+            }
 
 
 onEnter : Msg -> Attribute Msg
@@ -100,28 +114,38 @@ onEnter msg =
 view : Model -> Html Msg
 view model =
     div [] <|
-        [ input [ type' "text", placeholder "Title", onInput Title ] []             
+        [ input
+            [ type' "text"
+            , class "title"
+            , placeholder "Title"
+            , onInput Title
+            ]
+            []
         , div [] <|
             recipeFilter
-                [ (,) (List.length model.ingredients > 0) <| h3 [] [ text "Ingredients" ]
-                , (,) True <| input
-                  [ type' "text"
-                  , placeholder "10 Granny Smith Apples..."
-                  , value model.ingredient
-                  , onInput Ingredient
-                  , onEnter (AddIngredient model.ingredient)
-                  ]
-                []
+                [ (,) True <| h2 [] [ text "Ingredients" ]
+                , (,) True <|
+                    input
+                        [ type' "text"
+                        , class "item-input"
+                        , placeholder "10 Granny Smith Apples..."
+                        , value model.ingredient
+                        , onInput Ingredient
+                        , onEnter (AddIngredient model.ingredient)
+                        ]
+                        []
                 , (,) True <| listIngredients model
-                , (,) (List.length model.instructions > 0) <| h3 [] [ text "Instructions" ]
-                , (,) True <| input
-                  [ type' "text"
-                  , placeholder "Peel the apples..."
-                  , value model.instruction
-                  , onInput Instruction
-                  , onEnter (AddInstruction model.instruction)
-                  ]
-                []
+                , (,) True <| h2 [] [ text "Instructions" ]
+                , (,) True <|
+                    input
+                        [ type' "text"
+                        , class "item-input"
+                        , placeholder "Peel the apples..."
+                        , value model.instruction
+                        , onInput Instruction
+                        , onEnter (AddInstruction model.instruction)
+                        ]
+                        []
                 , (,) True <| listInstructions model
                 ]
         ]
@@ -146,7 +170,11 @@ listIngredients model =
         parseIngredient ingredient =
             li []
                 [ text ingredient
-                , button [ onClick (RemoveIngredient ingredient) ] [ text "Remove" ]
+                , button
+                    [ class "remove-btn"
+                    , onClick (RemoveIngredient ingredient)
+                    ]
+                    [ text "Remove" ]
                 ]
     in
         ul [] (List.map parseIngredient model.ingredients)
@@ -159,7 +187,11 @@ listInstructions model =
         parseInstruction instruction =
             li []
                 [ text instruction
-                , button [ onClick (RemoveInstruction instruction) ] [ text "Remove" ]
+                , button
+                    [ class "remove-btn"
+                    , onClick (RemoveInstruction instruction)
+                    ]
+                    [ text "Remove" ]
                 ]
     in
         ul [] (List.map parseInstruction model.instructions)

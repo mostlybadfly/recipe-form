@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="css/main.css" ><title>Main</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="css/main.css" ><title>Recetera</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -7967,6 +7967,7 @@ var _user$project$Main$listInstructions = function (model) {
 					_elm_lang$html$Html$button,
 					_elm_lang$core$Native_List.fromArray(
 						[
+							_elm_lang$html$Html_Attributes$class('remove-btn'),
 							_elm_lang$html$Html_Events$onClick(
 							_user$project$Main$RemoveInstruction(instruction))
 						]),
@@ -7998,6 +7999,7 @@ var _user$project$Main$listIngredients = function (model) {
 					_elm_lang$html$Html$button,
 					_elm_lang$core$Native_List.fromArray(
 						[
+							_elm_lang$html$Html_Attributes$class('remove-btn'),
 							_elm_lang$html$Html_Events$onClick(
 							_user$project$Main$RemoveIngredient(ingredient))
 						]),
@@ -8050,6 +8052,7 @@ var _user$project$Main$view = function (model) {
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html_Attributes$type$('text'),
+						_elm_lang$html$Html_Attributes$class('title'),
 						_elm_lang$html$Html_Attributes$placeholder('Title'),
 						_elm_lang$html$Html_Events$onInput(_user$project$Main$Title)
 					]),
@@ -8067,11 +8070,9 @@ var _user$project$Main$view = function (model) {
 								function (v0, v1) {
 									return {ctor: '_Tuple2', _0: v0, _1: v1};
 								}),
-							_elm_lang$core$Native_Utils.cmp(
-								_elm_lang$core$List$length(model.ingredients),
-								0) > 0,
+							true,
 							A2(
-								_elm_lang$html$Html$h3,
+								_elm_lang$html$Html$h2,
 								_elm_lang$core$Native_List.fromArray(
 									[]),
 								_elm_lang$core$Native_List.fromArray(
@@ -8089,6 +8090,7 @@ var _user$project$Main$view = function (model) {
 								_elm_lang$core$Native_List.fromArray(
 									[
 										_elm_lang$html$Html_Attributes$type$('text'),
+										_elm_lang$html$Html_Attributes$class('item-input'),
 										_elm_lang$html$Html_Attributes$placeholder('10 Granny Smith Apples...'),
 										_elm_lang$html$Html_Attributes$value(model.ingredient),
 										_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient),
@@ -8109,11 +8111,9 @@ var _user$project$Main$view = function (model) {
 								function (v0, v1) {
 									return {ctor: '_Tuple2', _0: v0, _1: v1};
 								}),
-							_elm_lang$core$Native_Utils.cmp(
-								_elm_lang$core$List$length(model.instructions),
-								0) > 0,
+							true,
 							A2(
-								_elm_lang$html$Html$h3,
+								_elm_lang$html$Html$h2,
 								_elm_lang$core$Native_List.fromArray(
 									[]),
 								_elm_lang$core$Native_List.fromArray(
@@ -8131,6 +8131,7 @@ var _user$project$Main$view = function (model) {
 								_elm_lang$core$Native_List.fromArray(
 									[
 										_elm_lang$html$Html_Attributes$type$('text'),
+										_elm_lang$html$Html_Attributes$class('item-input'),
 										_elm_lang$html$Html_Attributes$placeholder('Peel the apples...'),
 										_elm_lang$html$Html_Attributes$value(model.instruction),
 										_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction),
