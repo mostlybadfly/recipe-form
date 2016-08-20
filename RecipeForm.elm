@@ -99,36 +99,29 @@ onEnter msg =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ p []
-            [ input [ type' "text", placeholder "Title", onInput Title ] []
-            ]
-        , p []
-            [ input
-                [ type' "text"
-                , placeholder "10 Granny Smith Apples..."
-                , value model.ingredient
-                , onInput Ingredient
-                , onEnter (AddIngredient model.ingredient)
-                ]
-                []
-            ]
-        , p []
-            [ input
-                [ type' "text"
-                , placeholder "Peel the apples..."
-                , value model.instruction
-                , onInput Instruction
-                , onEnter (AddInstruction model.instruction)
-                ]
-                []
-            ]
-        , h1 [] [ text model.title ]
+    div [] <|
+        [ input [ type' "text", placeholder "Title", onInput Title ] []             
         , div [] <|
             recipeFilter
                 [ (,) (List.length model.ingredients > 0) <| h3 [] [ text "Ingredients" ]
+                , (,) True <| input
+                  [ type' "text"
+                  , placeholder "10 Granny Smith Apples..."
+                  , value model.ingredient
+                  , onInput Ingredient
+                  , onEnter (AddIngredient model.ingredient)
+                  ]
+                []
                 , (,) True <| listIngredients model
                 , (,) (List.length model.instructions > 0) <| h3 [] [ text "Instructions" ]
+                , (,) True <| input
+                  [ type' "text"
+                  , placeholder "Peel the apples..."
+                  , value model.instruction
+                  , onInput Instruction
+                  , onEnter (AddInstruction model.instruction)
+                  ]
+                []
                 , (,) True <| listInstructions model
                 ]
         ]
