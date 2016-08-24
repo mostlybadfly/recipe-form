@@ -25,6 +25,9 @@ type alias Model =
     , instruction : String
     , ingredients : List String
     , instructions : List String
+    , recipes : List Recipe
+    , currentRecipe : Maybe Recipe
+    , uid : Int
     }
 
 
@@ -35,6 +38,35 @@ init =
     , instruction = ""
     , ingredients = []
     , instructions = []
+    , recipes = []
+    , uid = 0
+    , currentRecipe = Nothing
+    }
+
+
+type alias Recipe =
+    { id : Int
+    , title : String
+    , ingredients : List String
+    , instructions : List String
+    }
+
+
+newRecipe : Int -> String -> List String -> List String -> Recipe
+newRecipe id title ingredients instructions =
+    { id = id
+    , title = title
+    , ingredients = ingredients
+    , instructions = instructions
+    }
+
+
+currentRecipe : Int -> String -> List String -> List String -> Recipe
+currentRecipe id title ingredients instructions =
+    { id = id
+    , title = title
+    , ingredients = ingredients
+    , instructions = instructions
     }
 
 
@@ -51,6 +83,8 @@ type Msg
     | AddInstruction String
     | RemoveIngredient String
     | RemoveInstruction String
+    | AddRecipe
+    | GetRecipe Int
 
 
 update : Msg -> Model -> Model
@@ -94,6 +128,18 @@ update msg model =
                     List.filter (\n -> (n /= instruction)) model.instructions
             }
 
+        AddRecipe ->
+            { model
+                | recipes = model.recipes ++ [ newRecipe model.uid model.title model.ingredients model.instructions ]
+                , title = ""
+                , ingredients = []
+                , instructions = []
+                , uid = model.uid + 1
+            }
+
+        GetRecipe id ->
+            { model | currentRecipe = List.head (List.filter (\n -> (n.id == id)) model.recipes) }
+
 
 onEnter : Msg -> Attribute Msg
 onEnter msg =
@@ -113,11 +159,12 @@ onEnter msg =
 
 view : Model -> Html Msg
 view model =
-    div [] <|
+    div []
         [ input
             [ type' "text"
             , class "title"
             , placeholder "Title"
+            , value model.title
             , onInput Title
             ]
             []
@@ -148,6 +195,10 @@ view model =
                         []
                 , (,) True <| listInstructions model
                 ]
+        , button [ onClick (AddRecipe) ] [ text "Add Recipe" ]
+        , button [ onClick (GetRecipe 0) ] [ text "Get Recipe" ]
+        , listRecipes model
+        , showRecipe model.currentRecipe
         ]
 
 
@@ -195,3 +246,53 @@ listInstructions model =
                 ]
     in
         ul [] (List.map parseInstruction model.instructions)
+
+
+listRecipes : Model -> Html Msg
+listRecipes model =
+    let
+        parseRecipe : Recipe -> Html Msg
+        parseRecipe recipe =
+            p [ onClick (GetRecipe recipe.id) ] [ text recipe.title ]
+    in
+        div [] (List.map parseRecipe model.recipes)
+
+
+showRecipe : Maybe Recipe -> Html Msg
+showRecipe maybeRecipe =
+    case maybeRecipe of
+        Just recipe ->
+            div [ class "recipe-display" ]
+                [ p [ class "title" ] [ text recipe.title ]
+                , h2 [] [ text "Ingredients" ]
+                , p [] [ listRecipeIngredients recipe ]
+                , h2 [] [ text "Instructions" ]
+                , p [] [ listRecipeInstructions recipe ]
+                ]
+
+        Nothing ->
+            p [ class "recipe-display" ] [ text "select a recipe" ]
+
+
+listRecipeIngredients : Recipe -> Html Msg
+listRecipeIngredients recipe =
+    let
+        parseRecipeIngredient : String -> Html Msg
+        parseRecipeIngredient ingredient =
+            li []
+                [ text ingredient
+                ]
+    in
+        ul [] (List.map parseRecipeIngredient recipe.ingredients)
+
+
+listRecipeInstructions : Recipe -> Html Msg
+listRecipeInstructions recipe =
+    let
+        parseRecipeInstruction : String -> Html Msg
+        parseRecipeInstruction instruction =
+            li []
+                [ text instruction
+                ]
+    in
+        ul [] (List.map parseRecipeInstruction recipe.instructions)
