@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html><head><meta charset="UTF-8"><link type="text/css" rel="stylesheet" href="css/main.css" ><title>Recetera</title><style>html,head,body { padding:0; margin:0; }
+<html><head><meta charset="UTF-8"><title>Main</title><style>html,head,body { padding:0; margin:0; }
 body { font-family: calibri, helvetica, arial, sans-serif; }</style><script type="text/javascript">
 (function() {
 'use strict';
@@ -7865,33 +7865,143 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
+var _user$project$Main$listRecipeInstructions = function (recipe) {
+	var parseRecipeInstruction = function (instruction) {
+		return A2(
+			_elm_lang$html$Html$li,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(instruction)
+				]));
+	};
+	return A2(
+		_elm_lang$html$Html$ul,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, parseRecipeInstruction, recipe.instructions));
+};
+var _user$project$Main$listRecipeIngredients = function (recipe) {
+	var parseRecipeIngredient = function (ingredient) {
+		return A2(
+			_elm_lang$html$Html$li,
+			_elm_lang$core$Native_List.fromArray(
+				[]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(ingredient)
+				]));
+	};
+	return A2(
+		_elm_lang$html$Html$ul,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, parseRecipeIngredient, recipe.ingredients));
+};
+var _user$project$Main$showRecipe = function (maybeRecipe) {
+	var _p0 = maybeRecipe;
+	if (_p0.ctor === 'Just') {
+		var _p1 = _p0._0;
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('recipe-display')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$p,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$class('title')
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(_p1.title)
+						])),
+					A2(
+					_elm_lang$html$Html$h2,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text('Ingredients')
+						])),
+					A2(
+					_elm_lang$html$Html$p,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Main$listRecipeIngredients(_p1)
+						])),
+					A2(
+					_elm_lang$html$Html$h2,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text('Instructions')
+						])),
+					A2(
+					_elm_lang$html$Html$p,
+					_elm_lang$core$Native_List.fromArray(
+						[]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_user$project$Main$listRecipeInstructions(_p1)
+						]))
+				]));
+	} else {
+		return A2(
+			_elm_lang$html$Html$p,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Attributes$class('recipe-display')
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text('select a recipe')
+				]));
+	}
+};
 var _user$project$Main$recipeFilter = function (list) {
 	return A2(
 		_elm_lang$core$List$filterMap,
-		function (_p0) {
-			var _p1 = _p0;
-			return _elm_lang$core$Native_Utils.eq(_p1._0, true) ? _elm_lang$core$Maybe$Just(_p1._1) : _elm_lang$core$Maybe$Nothing;
+		function (_p2) {
+			var _p3 = _p2;
+			return _elm_lang$core$Native_Utils.eq(_p3._0, true) ? _elm_lang$core$Maybe$Just(_p3._1) : _elm_lang$core$Maybe$Nothing;
 		},
 		list);
 };
+var _user$project$Main$currentRecipe = F4(
+	function (id, title, ingredients, instructions) {
+		return {id: id, title: title, ingredients: ingredients, instructions: instructions};
+	});
+var _user$project$Main$newRecipe = F4(
+	function (id, title, ingredients, instructions) {
+		return {id: id, title: title, ingredients: ingredients, instructions: instructions};
+	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p2 = msg;
-		switch (_p2.ctor) {
+		var _p4 = msg;
+		switch (_p4.ctor) {
 			case 'NoOp':
 				return model;
 			case 'Title':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{title: _p2._0});
+					{title: _p4._0});
 			case 'Ingredient':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{ingredient: _p2._0});
+					{ingredient: _p4._0});
 			case 'Instruction':
 				return _elm_lang$core$Native_Utils.update(
 					model,
-					{instruction: _p2._0});
+					{instruction: _p4._0});
 			case 'AddIngredient':
 				return _elm_lang$core$Native_Utils.update(
 					model,
@@ -7900,7 +8010,7 @@ var _user$project$Main$update = F2(
 							_elm_lang$core$Basics_ops['++'],
 							model.ingredients,
 							_elm_lang$core$Native_List.fromArray(
-								[_p2._0])),
+								[_p4._0])),
 						ingredient: ''
 					});
 			case 'AddInstruction':
@@ -7911,7 +8021,7 @@ var _user$project$Main$update = F2(
 							_elm_lang$core$Basics_ops['++'],
 							model.instructions,
 							_elm_lang$core$Native_List.fromArray(
-								[_p2._0])),
+								[_p4._0])),
 						instruction: ''
 					});
 			case 'RemoveIngredient':
@@ -7921,20 +8031,50 @@ var _user$project$Main$update = F2(
 						ingredients: A2(
 							_elm_lang$core$List$filter,
 							function (n) {
-								return !_elm_lang$core$Native_Utils.eq(n, _p2._0);
+								return !_elm_lang$core$Native_Utils.eq(n, _p4._0);
 							},
 							model.ingredients)
 					});
-			default:
+			case 'RemoveInstruction':
 				return _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						instructions: A2(
 							_elm_lang$core$List$filter,
 							function (n) {
-								return !_elm_lang$core$Native_Utils.eq(n, _p2._0);
+								return !_elm_lang$core$Native_Utils.eq(n, _p4._0);
 							},
 							model.instructions)
+					});
+			case 'AddRecipe':
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						recipes: A2(
+							_elm_lang$core$Basics_ops['++'],
+							model.recipes,
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A4(_user$project$Main$newRecipe, model.uid, model.title, model.ingredients, model.instructions)
+								])),
+						title: '',
+						ingredients: _elm_lang$core$Native_List.fromArray(
+							[]),
+						instructions: _elm_lang$core$Native_List.fromArray(
+							[]),
+						uid: model.uid + 1
+					});
+			default:
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						currentRecipe: _elm_lang$core$List$head(
+							A2(
+								_elm_lang$core$List$filter,
+								function (n) {
+									return _elm_lang$core$Native_Utils.eq(n.id, _p4._0);
+								},
+								model.recipes))
 					});
 		}
 	});
@@ -7945,12 +8085,44 @@ var _user$project$Main$init = {
 	ingredients: _elm_lang$core$Native_List.fromArray(
 		[]),
 	instructions: _elm_lang$core$Native_List.fromArray(
-		[])
+		[]),
+	recipes: _elm_lang$core$Native_List.fromArray(
+		[]),
+	uid: 0,
+	currentRecipe: _elm_lang$core$Maybe$Nothing
 };
-var _user$project$Main$Model = F5(
-	function (a, b, c, d, e) {
-		return {title: a, ingredient: b, instruction: c, ingredients: d, instructions: e};
+var _user$project$Main$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {title: a, ingredient: b, instruction: c, ingredients: d, instructions: e, recipes: f, currentRecipe: g, uid: h};
 	});
+var _user$project$Main$Recipe = F4(
+	function (a, b, c, d) {
+		return {id: a, title: b, ingredients: c, instructions: d};
+	});
+var _user$project$Main$GetRecipe = function (a) {
+	return {ctor: 'GetRecipe', _0: a};
+};
+var _user$project$Main$listRecipes = function (model) {
+	var parseRecipe = function (recipe) {
+		return A2(
+			_elm_lang$html$Html$p,
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html_Events$onClick(
+					_user$project$Main$GetRecipe(recipe.id))
+				]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					_elm_lang$html$Html$text(recipe.title)
+				]));
+	};
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		A2(_elm_lang$core$List$map, parseRecipe, model.recipes));
+};
+var _user$project$Main$AddRecipe = {ctor: 'AddRecipe'};
 var _user$project$Main$RemoveInstruction = function (a) {
 	return {ctor: 'RemoveInstruction', _0: a};
 };
@@ -8054,6 +8226,7 @@ var _user$project$Main$view = function (model) {
 						_elm_lang$html$Html_Attributes$type$('text'),
 						_elm_lang$html$Html_Attributes$class('title'),
 						_elm_lang$html$Html_Attributes$placeholder('Title'),
+						_elm_lang$html$Html_Attributes$value(model.title),
 						_elm_lang$html$Html_Events$onInput(_user$project$Main$Title)
 					]),
 				_elm_lang$core$Native_List.fromArray(
@@ -8147,7 +8320,30 @@ var _user$project$Main$view = function (model) {
 								}),
 							true,
 							_user$project$Main$listInstructions(model))
-						])))
+						]))),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(_user$project$Main$AddRecipe)
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Add Recipe')
+					])),
+				A2(
+				_elm_lang$html$Html$button,
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html_Events$onClick(
+						_user$project$Main$GetRecipe(0))
+					]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Get Recipe')
+					])),
+				_user$project$Main$listRecipes(model),
+				_user$project$Main$showRecipe(model.currentRecipe)
 			]));
 };
 var _user$project$Main$main = {
