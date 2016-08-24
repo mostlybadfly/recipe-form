@@ -221,7 +221,7 @@ listIngredients model =
             li []
                 [ text ingredient
                 , button
-                    [ class "remove-btn"
+                    [ class "remove-button"
                     , onClick (RemoveIngredient ingredient)
                     ]
                     [ text "Remove" ]
@@ -265,7 +265,7 @@ showRecipe maybeRecipe =
     case maybeRecipe of
         Just recipe ->
             div [ class "recipe-display" ]
-                [ p [ class "title" ] [ text recipe.title ]
+                [ p [] [ text recipe.title ]
                 , h2 [] [ text "Ingredients" ]
                 , p [] [ listRecipeIngredients recipe ]
                 , h2 [] [ text "Instructions" ]
@@ -281,7 +281,7 @@ listRecipeIngredients recipe =
     let
         parseRecipeIngredient : String -> Html Msg
         parseRecipeIngredient ingredient =
-            li []
+            li [ class "list-item" ]
                 [ text ingredient
                 ]
     in
@@ -293,8 +293,8 @@ listRecipeInstructions recipe =
     let
         parseRecipeInstruction : String -> Html Msg
         parseRecipeInstruction instruction =
-            li []
+            li [ class "list-item" ]
                 [ text instruction
                 ]
     in
-        ul [] (List.map parseRecipeInstruction recipe.instructions)
+        ol [] (List.map parseRecipeInstruction recipe.instructions)

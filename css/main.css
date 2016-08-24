@@ -19,7 +19,16 @@ li {
 }
 
 ul {
-	list-style: none;
+  list-style: none;
+  display: inline-block;
+  text-align: left;
+  list-style-position: inside:
+}
+
+ol {
+  display: inline-block;
+  text-align: left;
+  list-style-position: inside;
 }
 
 h2 {
@@ -34,7 +43,18 @@ h2 {
 .item-input {
 }
 
-.remove-btn {
+.remove-button {
+  background-color: tomato;
+  font-size: 10px;
+  border: 2px;
+  border-radius: 6px;
+}
+
+.add-button {
+  background-color: seagreen;
+  font-size: 16px;
+  border: 2px;
+  border-radius: 8px;
 }
 
 h3 {
@@ -43,4 +63,11 @@ h3 {
 
 div {
   text-align: center;
+}
+
+.recipe-display {
+  text-shadow: 1px 1px cadetblue;
+}
+
+.list-item {
 }

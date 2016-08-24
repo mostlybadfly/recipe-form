@@ -7870,14 +7870,16 @@ var _user$project$Main$listRecipeInstructions = function (recipe) {
 		return A2(
 			_elm_lang$html$Html$li,
 			_elm_lang$core$Native_List.fromArray(
-				[]),
+				[
+					_elm_lang$html$Html_Attributes$class('list-item')
+				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
 					_elm_lang$html$Html$text(instruction)
 				]));
 	};
 	return A2(
-		_elm_lang$html$Html$ul,
+		_elm_lang$html$Html$ol,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
 		A2(_elm_lang$core$List$map, parseRecipeInstruction, recipe.instructions));
@@ -7887,7 +7889,9 @@ var _user$project$Main$listRecipeIngredients = function (recipe) {
 		return A2(
 			_elm_lang$html$Html$li,
 			_elm_lang$core$Native_List.fromArray(
-				[]),
+				[
+					_elm_lang$html$Html_Attributes$class('list-item')
+				]),
 			_elm_lang$core$Native_List.fromArray(
 				[
 					_elm_lang$html$Html$text(ingredient)
@@ -7914,9 +7918,7 @@ var _user$project$Main$showRecipe = function (maybeRecipe) {
 					A2(
 					_elm_lang$html$Html$p,
 					_elm_lang$core$Native_List.fromArray(
-						[
-							_elm_lang$html$Html_Attributes$class('title')
-						]),
+						[]),
 					_elm_lang$core$Native_List.fromArray(
 						[
 							_elm_lang$html$Html$text(_p1.title)
@@ -8186,7 +8188,7 @@ var _user$project$Main$listIngredients = function (model) {
 					_elm_lang$html$Html$button,
 					_elm_lang$core$Native_List.fromArray(
 						[
-							_elm_lang$html$Html_Attributes$class('remove-btn'),
+							_elm_lang$html$Html_Attributes$class('remove-button'),
 							_elm_lang$html$Html_Events$onClick(
 							_user$project$Main$RemoveIngredient(ingredient))
 						]),
