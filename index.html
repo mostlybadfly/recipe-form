@@ -8120,7 +8120,22 @@ var _user$project$Main$listRecipes = function (model) {
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		A2(_elm_lang$core$List$map, parseRecipe, model.recipes));
+		_elm_lang$core$Native_List.fromArray(
+			[
+				A2(
+				_elm_lang$html$Html$h3,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				_elm_lang$core$Native_List.fromArray(
+					[
+						_elm_lang$html$Html$text('Saved Recipes:')
+					])),
+				A2(
+				_elm_lang$html$Html$div,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(_elm_lang$core$List$map, parseRecipe, model.recipes))
+			]));
 };
 var _user$project$Main$AddRecipe = {ctor: 'AddRecipe'};
 var _user$project$Main$RemoveInstruction = function (a) {
@@ -8325,22 +8340,12 @@ var _user$project$Main$view = function (model) {
 				_elm_lang$html$Html$button,
 				_elm_lang$core$Native_List.fromArray(
 					[
+						_elm_lang$html$Html_Attributes$class('add-button'),
 						_elm_lang$html$Html_Events$onClick(_user$project$Main$AddRecipe)
 					]),
 				_elm_lang$core$Native_List.fromArray(
 					[
 						_elm_lang$html$Html$text('Add Recipe')
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(
-						_user$project$Main$GetRecipe(0))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('Get Recipe')
 					])),
 				_user$project$Main$listRecipes(model),
 				_user$project$Main$showRecipe(model.currentRecipe)

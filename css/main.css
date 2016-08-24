@@ -5,10 +5,10 @@ body {
 input {
 	font-family: monospace;
 	font-size: 14px;
+  text-align: center;
   height: auto;
   width: 100%;
   border: none;
-  text-align: center;
   background-color: lightblue;
   
 }
@@ -16,7 +16,6 @@ input {
 li {
 	font-family: monospace;
 	font-size: 14px;
-	text-align: center;
 }
 
 ul {
@@ -25,15 +24,23 @@ ul {
 
 h2 {
 	font-family: monospace;
-	text-align: center;
 }
 
 .title {
   font-size: 50px;
+  font-family: monospace;
 }
 
 .item-input {
 }
 
 .remove-btn {
+}
+
+h3 {
+  font-family: monospace;
+}
+
+div {
+  text-align: center;
 }

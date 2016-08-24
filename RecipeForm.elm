@@ -195,8 +195,7 @@ view model =
                         []
                 , (,) True <| listInstructions model
                 ]
-        , button [ onClick (AddRecipe) ] [ text "Add Recipe" ]
-        , button [ onClick (GetRecipe 0) ] [ text "Get Recipe" ]
+        , button [ class "add-button", onClick (AddRecipe) ] [ text "Add Recipe" ]
         , listRecipes model
         , showRecipe model.currentRecipe
         ]
@@ -255,7 +254,10 @@ listRecipes model =
         parseRecipe recipe =
             p [ onClick (GetRecipe recipe.id) ] [ text recipe.title ]
     in
-        div [] (List.map parseRecipe model.recipes)
+        div []
+            [ h3 [] [ text "Saved Recipes:" ]
+            , div [] (List.map parseRecipe model.recipes)
+            ]
 
 
 showRecipe : Maybe Recipe -> Html Msg
