@@ -238,7 +238,7 @@ listInstructions model =
             li []
                 [ text instruction
                 , button
-                    [ class "remove-btn"
+                    [ class "remove-button"
                     , onClick (RemoveInstruction instruction)
                     ]
                     [ text "Remove" ]
