@@ -8005,25 +8005,31 @@ var _user$project$Main$update = F2(
 					model,
 					{instruction: _p4._0});
 			case 'AddIngredient':
-				return _elm_lang$core$Native_Utils.update(
+				var _p5 = _p4._0;
+				return _elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$String$isEmpty(_p5),
+					true) ? model : _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						ingredients: A2(
 							_elm_lang$core$Basics_ops['++'],
 							model.ingredients,
 							_elm_lang$core$Native_List.fromArray(
-								[_p4._0])),
+								[_p5])),
 						ingredient: ''
 					});
 			case 'AddInstruction':
-				return _elm_lang$core$Native_Utils.update(
+				var _p6 = _p4._0;
+				return _elm_lang$core$Native_Utils.eq(
+					_elm_lang$core$String$isEmpty(_p6),
+					true) ? model : _elm_lang$core$Native_Utils.update(
 					model,
 					{
 						instructions: A2(
 							_elm_lang$core$Basics_ops['++'],
 							model.instructions,
 							_elm_lang$core$Native_List.fromArray(
-								[_p4._0])),
+								[_p6])),
 						instruction: ''
 					});
 			case 'RemoveIngredient':
@@ -8252,102 +8258,79 @@ var _user$project$Main$view = function (model) {
 				_elm_lang$html$Html$div,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
-				_user$project$Main$recipeFilter(
-					_elm_lang$core$Native_List.fromArray(
-						[
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							A2(
-								_elm_lang$html$Html$h2,
-								_elm_lang$core$Native_List.fromArray(
-									[]),
-								_elm_lang$core$Native_List.fromArray(
-									[
-										_elm_lang$html$Html$text('Ingredients')
-									]))),
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							A2(
-								_elm_lang$html$Html$input,
-								_elm_lang$core$Native_List.fromArray(
-									[
-										_elm_lang$html$Html_Attributes$type$('text'),
-										_elm_lang$html$Html_Attributes$class('item-input'),
-										_elm_lang$html$Html_Attributes$placeholder('10 Granny Smith Apples...'),
-										_elm_lang$html$Html_Attributes$value(model.ingredient),
-										_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient),
-										_user$project$Main$onEnter(
-										_user$project$Main$AddIngredient(model.ingredient))
-									]),
-								_elm_lang$core$Native_List.fromArray(
-									[]))),
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							_user$project$Main$listIngredients(model)),
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							A2(
-								_elm_lang$html$Html$h2,
-								_elm_lang$core$Native_List.fromArray(
-									[]),
-								_elm_lang$core$Native_List.fromArray(
-									[
-										_elm_lang$html$Html$text('Instructions')
-									]))),
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							A2(
-								_elm_lang$html$Html$input,
-								_elm_lang$core$Native_List.fromArray(
-									[
-										_elm_lang$html$Html_Attributes$type$('text'),
-										_elm_lang$html$Html_Attributes$class('item-input'),
-										_elm_lang$html$Html_Attributes$placeholder('Peel the apples...'),
-										_elm_lang$html$Html_Attributes$value(model.instruction),
-										_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction),
-										_user$project$Main$onEnter(
-										_user$project$Main$AddInstruction(model.instruction))
-									]),
-								_elm_lang$core$Native_List.fromArray(
-									[]))),
-							A2(
-							F2(
-								function (v0, v1) {
-									return {ctor: '_Tuple2', _0: v0, _1: v1};
-								}),
-							true,
-							_user$project$Main$listInstructions(model))
-						]))),
-				A2(
-				_elm_lang$html$Html$button,
 				_elm_lang$core$Native_List.fromArray(
 					[
-						_elm_lang$html$Html_Attributes$class('add-button'),
-						_elm_lang$html$Html_Events$onClick(_user$project$Main$AddRecipe)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('Add Recipe')
+						A2(
+						_elm_lang$html$Html$h2,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Ingredients')
+							])),
+						A2(
+						_elm_lang$html$Html$input,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$type$('text'),
+								_elm_lang$html$Html_Attributes$class('item-input'),
+								_elm_lang$html$Html_Attributes$placeholder('10 Granny Smith Apples...'),
+								_elm_lang$html$Html_Attributes$value(model.ingredient),
+								_elm_lang$html$Html_Events$onInput(_user$project$Main$Ingredient),
+								_user$project$Main$onEnter(
+								_user$project$Main$AddIngredient(model.ingredient))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						_user$project$Main$listIngredients(model),
+						A2(
+						_elm_lang$html$Html$h2,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html$text('Instructions')
+							])),
+						A2(
+						_elm_lang$html$Html$input,
+						_elm_lang$core$Native_List.fromArray(
+							[
+								_elm_lang$html$Html_Attributes$type$('text'),
+								_elm_lang$html$Html_Attributes$class('item-input'),
+								_elm_lang$html$Html_Attributes$placeholder('Peel the apples...'),
+								_elm_lang$html$Html_Attributes$value(model.instruction),
+								_elm_lang$html$Html_Events$onInput(_user$project$Main$Instruction),
+								_user$project$Main$onEnter(
+								_user$project$Main$AddInstruction(model.instruction))
+							]),
+						_elm_lang$core$Native_List.fromArray(
+							[])),
+						_user$project$Main$listInstructions(model),
+						A2(
+						_elm_lang$html$Html$p,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_user$project$Main$recipeFilter(
+							_elm_lang$core$Native_List.fromArray(
+								[
+									A2(
+									F2(
+										function (v0, v1) {
+											return {ctor: '_Tuple2', _0: v0, _1: v1};
+										}),
+									!_elm_lang$core$Native_Utils.eq(model.title, ''),
+									A2(
+										_elm_lang$html$Html$button,
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html_Attributes$class('add-button'),
+												_elm_lang$html$Html_Events$onClick(_user$project$Main$AddRecipe)
+											]),
+										_elm_lang$core$Native_List.fromArray(
+											[
+												_elm_lang$html$Html$text('Add Recipe')
+											])))
+								])))
 					])),
 				_user$project$Main$listRecipes(model),
 				_user$project$Main$showRecipe(model.currentRecipe)
