@@ -1,11 +1,9 @@
-module Main exposing (..)
-
 import Html exposing (..)
 import Html.App as App
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput, onClick, onBlur, on, keyCode)
 import Json.Decode as Json
-
+import String exposing (isEmpty)
 
 main =
     App.beginnerProgram
@@ -103,17 +101,21 @@ update msg model =
             { model | instruction = instruction }
 
         AddIngredient ingredient ->
-            { model
-                | ingredients =
-                    model.ingredients ++ [ ingredient ]
-                , ingredient = ""
+              if isEmpty ingredient == True then
+                 model
+             else
+                 {model | 
+                      ingredients = model.ingredients ++ [ ingredient ]
+                      , ingredient = ""
             }
 
         AddInstruction instruction ->
-            { model
-                | instructions =
-                    model.instructions ++ [ instruction ]
-                , instruction = ""
+             if isEmpty instruction == True then
+                 model
+             else
+                 {model | 
+                      instructions = model.instructions ++ [ instruction ]
+                      , instruction = ""
             }
 
         RemoveIngredient ingredient ->
@@ -168,11 +170,9 @@ view model =
             , onInput Title
             ]
             []
-        , div [] <|
-            recipeFilter
-                [ (,) True <| h2 [] [ text "Ingredients" ]
-                , (,) True <|
-                    input
+        , div []
+                  [ h2 [] [ text "Ingredients" ]
+                , input
                         [ type' "text"
                         , class "item-input"
                         , placeholder "10 Granny Smith Apples..."
@@ -181,10 +181,9 @@ view model =
                         , onEnter (AddIngredient model.ingredient)
                         ]
                         []
-                , (,) True <| listIngredients model
-                , (,) True <| h2 [] [ text "Instructions" ]
-                , (,) True <|
-                    input
+                , listIngredients model
+                , h2 [] [ text "Instructions" ]
+                , input
                         [ type' "text"
                         , class "item-input"
                         , placeholder "Peel the apples..."
@@ -193,9 +192,11 @@ view model =
                         , onEnter (AddInstruction model.instruction)
                         ]
                         []
-                , (,) True <| listInstructions model
+                , listInstructions model
+                , p [] <| recipeFilter
+                    [ (,) (model.title /= "") <| button [ class "add-button", onClick (AddRecipe) ] [ text "Add Recipe" ]
                 ]
-        , button [ class "add-button", onClick (AddRecipe) ] [ text "Add Recipe" ]
+                ]
         , listRecipes model
         , showRecipe model.currentRecipe
         ]
