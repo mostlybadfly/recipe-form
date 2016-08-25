@@ -265,7 +265,7 @@ showRecipe maybeRecipe =
     case maybeRecipe of
         Just recipe ->
             div [ class "recipe-display" ]
-                [ p [] [ text recipe.title ]
+                [ h1 [] [ text recipe.title ]
                 , h2 [] [ text "Ingredients" ]
                 , p [] [ listRecipeIngredients recipe ]
                 , h2 [] [ text "Instructions" ]
