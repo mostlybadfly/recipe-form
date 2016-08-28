@@ -7978,6 +7978,7 @@ var _user$project$Main$recipeFilter = function (list) {
 		},
 		list);
 };
+var _user$project$Main$recipeData = '[{\n    \"id\": 0,\n    \"title\": \"Mole\",\n    \"ingredients\": [\n      \"10 chiles guajillo\",\n      \"10 chiles ancho\",\n      \"10 chiles pasilla\",\n      \"5 chiles cascabel\",\n      \"4 tomatillos, peeled\",\n      \"4 cloves garlic\",\n      \"1 ripe plantain\",\n      \"1/2 cup reserved chile seeds\",\n      \"1/2 cup almonds\",\n      \"1/2 cup pumpkin seeds\",\n      \"1/2 cup sesame seeds\",\n      \"1/2 cup raisins\",\n      \"1/2 a stick of canela\",\n      \"3 allspice berries\",\n      \"4 cloves\",\n      \"6 peppercorns\",\n      \"1 tsp cumin seeds\",\n      \"2 tsp marjoram\",\n      \"2 tsp Mexican oregano\",\n      \"1 tsp thyme\",\n      \"2 tortillas\",\n      \"1 bolillo\",\n      \"1/2 cup lard\",\n      \"1 tablet Mexican chocolate\",\n      \"1-2 tsp sugar\",\n      \"5-6 cups chicken broth\",\n      \"salt\"\n    ],\n    \"instructions\": [\n      \"Toast all ingredients on a comal until golden brown, except for chocolate.  For small seeds, spices, herbs a sauté pan might work best and heat through until fragrant.\",\n      \"For chiles specifically: toast ancho and pasilla for 2-3 minutes on each side. Toast guajillo and cascabel for 4-5 minutes to get them very dark/black. Place in a bowl and cover with boiled water for 25 minutes.\",\n      \"The plantain can be griddled skin on, the heat will soften it.\",\n      \"For the bolillo: heat the lard until hot, fry the bread well on all sides.\",\n      \"In a blender, start with chiles and nuts/seeds as these will get the thickest.  Add just enough water at a time to get the blender going, you may need to push ingredients down.\",\n      \"Blend the remaining ingredients, except for the chocolate, chicken, and lard. At this point, the sauce should be a slightly thinner paste\",\n      \"Heat the lard in a large pot or dutch oven until very hot.\",\n      \"In one motion, pour all of the mole over the lard, the idea is to fry the sauce and cook it really well. Stir occasionally for 5 minutes.\",\n      \"After this point, add the chocolate and stir well so it can break up and get incorporated.\",\n      \"Add chicken broth and allow this to simmer for an hour, stir frequently to avoid sticking.\",\n      \"Towards the end, use a stick blender to smooth out the sauce a bit more.\",\n      \"This can be poured over chicken or turkey. I prefer to shred chicken and mix in with the sauce.\"\n    ]\n  },\n  {\n    \"id\": 1,\n    \"title\": \"Coconut Milk Braised Greens\",\n    \"ingredients\": [\n      \"5 bunches collard greens\",\n      \"2 bunches turnip greens\",\n      \"3 leeks, sliced in half\",\n      \"1 large knob ginger, crushed\",\n      \"1 head garlic\",\n      \"4 shallots\",\n      \"32 oz vegetable broth\",\n      \"1 large yellow onion\",\n      \"4 cloves garlic, minced\",\n      \"4 cloves garlic, minced\",\n      \"2-3 tablespoons gochujang\",\n      \"2 cans coconut milk\",\n      \"1-2 tablespoons rice vinegar\",\n      \"1-2 tablespoons white vinegar\",\n      \"salt and pepper\"\n    ],\n    \"instructions\": [\n      \"Begin by roasting sliced leeks, crushed garlic, unpeeled garlic cloves and shallots in a very hot oven. The goal is to get a nice dark brown color or even some charring on them. Turn halfway through to get color on the other side.\",\n      \"Add all of the roasted aromatics to a pot with the vegetable broth and bring to a boil, simmer for at least an hour.\",\n      \"In the meantime, remove stems from all of the greens and wash by hand. This is easiest in a clean sink or a large container of water. Once this is done, lay the greens flat, starting with the biggest leaves, maybe 10-15 leaves each. Roll each pile of leaves into cigars and cut across to create ribbons.  Place these in a large container filled with water to rinse once last time.\",\n      \"Strain the broth, in the same pan sauté onion, minced garlic and ginger until softened.  Add the gochujang to and cook for another minute before adding the vegetable broth and coconut milk, bring to a boil for 15 minutes.\",\n      \"Add all of the greens, if there is not room stir to start wilting them, they should reduce in size significantly.  Reduce heat to low and simmer for two hours, stirring occasionally.\",\n      \"To finish, stir in vinegars as well as additional salt and pepper to taste.\"\n    ]\n  }]';
 var _user$project$Main$currentRecipe = F4(
 	function (id, title, ingredients, instructions) {
 		return {id: id, title: title, ingredients: ingredients, instructions: instructions};
@@ -8086,19 +8087,6 @@ var _user$project$Main$update = F2(
 					});
 		}
 	});
-var _user$project$Main$init = {
-	title: '',
-	ingredient: '',
-	instruction: '',
-	ingredients: _elm_lang$core$Native_List.fromArray(
-		[]),
-	instructions: _elm_lang$core$Native_List.fromArray(
-		[]),
-	recipes: _elm_lang$core$Native_List.fromArray(
-		[]),
-	uid: 0,
-	currentRecipe: _elm_lang$core$Maybe$Nothing
-};
 var _user$project$Main$Model = F8(
 	function (a, b, c, d, e, f, g, h) {
 		return {title: a, ingredient: b, instruction: c, ingredients: d, instructions: e, recipes: f, currentRecipe: g, uid: h};
@@ -8107,6 +8095,37 @@ var _user$project$Main$Recipe = F4(
 	function (a, b, c, d) {
 		return {id: a, title: b, ingredients: c, instructions: d};
 	});
+var _user$project$Main$recipeDecoder = A5(
+	_elm_lang$core$Json_Decode$object4,
+	_user$project$Main$Recipe,
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'id', _elm_lang$core$Json_Decode$int),
+	A2(_elm_lang$core$Json_Decode_ops[':='], 'title', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode_ops[':='],
+		'ingredients',
+		_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string)),
+	A2(
+		_elm_lang$core$Json_Decode_ops[':='],
+		'instructions',
+		_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string)));
+var _user$project$Main$cookbookDecoder = _elm_lang$core$Json_Decode$list(_user$project$Main$recipeDecoder);
+var _user$project$Main$decodedRecipes = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$cookbookDecoder, _user$project$Main$recipeData);
+var _user$project$Main$init = {
+	title: '',
+	ingredient: '',
+	instruction: '',
+	ingredients: _elm_lang$core$Native_List.fromArray(
+		[]),
+	instructions: _elm_lang$core$Native_List.fromArray(
+		[]),
+	recipes: A2(
+		_elm_lang$core$Result$withDefault,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_user$project$Main$decodedRecipes),
+	uid: 0,
+	currentRecipe: _elm_lang$core$Maybe$Nothing
+};
 var _user$project$Main$GetRecipe = function (a) {
 	return {ctor: 'GetRecipe', _0: a};
 };
