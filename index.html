@@ -8110,22 +8110,38 @@ var _user$project$Main$recipeDecoder = A5(
 		_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string)));
 var _user$project$Main$cookbookDecoder = _elm_lang$core$Json_Decode$list(_user$project$Main$recipeDecoder);
 var _user$project$Main$decodedRecipes = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$cookbookDecoder, _user$project$Main$recipeData);
-var _user$project$Main$init = {
-	title: '',
-	ingredient: '',
-	instruction: '',
-	ingredients: _elm_lang$core$Native_List.fromArray(
-		[]),
-	instructions: _elm_lang$core$Native_List.fromArray(
-		[]),
-	recipes: A2(
+var _user$project$Main$init = function () {
+	var recipes = A2(
 		_elm_lang$core$Result$withDefault,
 		_elm_lang$core$Native_List.fromArray(
 			[]),
-		_user$project$Main$decodedRecipes),
-	uid: 0,
-	currentRecipe: _elm_lang$core$Maybe$Nothing
-};
+		_user$project$Main$decodedRecipes);
+	return {
+		title: '',
+		ingredient: '',
+		instruction: '',
+		ingredients: _elm_lang$core$Native_List.fromArray(
+			[]),
+		instructions: _elm_lang$core$Native_List.fromArray(
+			[]),
+		recipes: recipes,
+		uid: function () {
+			var _p7 = _elm_lang$core$List$maximum(
+				A2(
+					_elm_lang$core$List$map,
+					function (_) {
+						return _.id;
+					},
+					recipes));
+			if (_p7.ctor === 'Nothing') {
+				return 0;
+			} else {
+				return _p7._0 + 1;
+			}
+		}(),
+		currentRecipe: _elm_lang$core$Maybe$Nothing
+	};
+}();
 var _user$project$Main$GetRecipe = function (a) {
 	return {ctor: 'GetRecipe', _0: a};
 };
