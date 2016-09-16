@@ -35,14 +35,19 @@ type alias Model =
 
 init : Model
 init =
-    { title = ""
-    , ingredient = ""
-    , instruction = ""
-    , ingredients = []
-    , instructions = []
-    , recipes = Result.withDefault [] decodedRecipes
-    , uid = 0
-    , currentRecipe = Nothing
+    let
+        recipes = Result.withDefault [] decodedRecipes
+    in
+        { title = ""
+        , ingredient = ""
+        , instruction = ""
+        , ingredients = []
+        , instructions = []
+        , recipes = recipes
+        , uid = case List.maximum( List.map .id recipes ) of
+                  Nothing -> 0
+                  Just x -> x + 1
+        , currentRecipe = Nothing
     }
 
 
